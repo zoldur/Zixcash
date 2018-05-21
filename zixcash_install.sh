@@ -4,7 +4,7 @@ TMP_FOLDER=$(mktemp -d)
 CONFIG_FILE='zixcash.conf'
 CONFIGFOLDER='/root/.zixcash'
 COIN_DAEMON='zixcashd'
-COIN_CLI='zixcashd'
+COIN_CLI='zixcash-cli'
 COIN_PATH='/usr/local/bin/'
 COIN_TGZ='https://github.com/zoldur/Zixcash/releases/download/v2.0.0.3/zixcash.tar.gz'
 COIN_ZIP=$(echo $COIN_TGZ | awk -F'/' '{print $NF}')
@@ -25,10 +25,9 @@ function download_node() {
   cd $TMP_FOLDER >/dev/null 2>&1
   wget -q $COIN_TGZ
   compile_error
-  tar xvzf $COIN_ZIP
-  chmod +x $COIN_DAEMON
-  cp $COIN_DAEMON $COIN_PATH
-  cd ~ >/dev/null 2>&1
+  tar xvzf $COIN_ZIP >/dev/null 2>&1
+  cp $COIN_DAEMON $COIN_CLI $COIN_PATH
+  cd - >/dev/null 2>&1
   rm -rf $TMP_FOLDER >/dev/null 2>&1
   clear
 }
